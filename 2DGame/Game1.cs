@@ -1,19 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ReusableEngineComponents;
 
 namespace _2DGame
 {
-    public class Game1 : Game
+    public class Game1 : Core
     {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
 
-        public Game1()
+        private Texture2D _logo;
+
+
+
+        public Game1(): base("Snake Game", 1280, 720, false)
         {
-            _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            
         }
 
         protected override void Initialize()
@@ -25,9 +26,10 @@ namespace _2DGame
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            _logo = Content.Load<Texture2D>("images/logo");
+           
         }
 
         protected override void Update(GameTime gameTime)
@@ -44,6 +46,11 @@ namespace _2DGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            SpriteBatch.Begin();
+            SpriteBatch.Draw(_logo, new Vector2((Window.ClientBounds.Width * 0.5f) - (_logo.Width * 0.5f),
+            (Window.ClientBounds.Height * 0.5f) - (_logo.Height * 0.5f)),  Color.White);
+
+            SpriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
